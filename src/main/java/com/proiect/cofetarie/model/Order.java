@@ -8,6 +8,7 @@ public class Order {
     private int clientID;
     // List: <cake, quantity>
     private Map<Cake, Integer> productsList;
+    private int totalPrice;
     private Date orderDate;
     private Date deliveryDate;
     private Boolean arrived;
@@ -18,6 +19,14 @@ public class Order {
         this.orderDate = orderDate;
         this.deliveryDate = deliveryDate;
         this.arrived = false;
+        calculateTotalPrice();
+    }
+
+    public void calculateTotalPrice() {
+        totalPrice = 0;
+        for (Map.Entry<Cake, Integer> product : productsList.entrySet()) {
+            totalPrice += product.getKey().getPrice() * product.getValue();
+        }
     }
 
     public int getOrderID() {
@@ -42,6 +51,14 @@ public class Order {
 
     public void setProductsList(Map<Cake, Integer> productsList) {
         this.productsList = productsList;
+    }
+
+    public int getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public Date getOrderDate() {
