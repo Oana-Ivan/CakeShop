@@ -1,29 +1,37 @@
-package com.proiect.cofetarie.model;
+package com.proiect.cofetarie.dto.address;
 
-import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-@Entity
-@Table(name = "delivery_addresses")
-public class DeliveryAddress {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "delivery_address_id")
-    private int deliveryAddressID;
-
-//    private int clientID;
+public class CreateNewDeliveryAddressDTO {
+    @NotBlank
+    @Size(max = 100)
     private String country;
+
+    @NotBlank
+    @Size(max = 100)
     private String region;
+
+    @NotBlank
+    @Size(max = 100)
     private String city;
+
+    @NotBlank
+    @Size(max = 100)
     private String street;
+
+    @NotNull
     private int streetNumber;
+
     private int floorNumber;
+
     private int apartmentNumber;
 
-    public DeliveryAddress() {
-
+    public CreateNewDeliveryAddressDTO() {
     }
 
-    public DeliveryAddress(String country, String region, String city, String street, int streetNumber, int floorNumber, int apartmentNumber) {
+    public CreateNewDeliveryAddressDTO(@NotBlank @Size(max = 100) String country, @NotBlank @Size(max = 100) String region, @NotBlank @Size(max = 100) String city, @NotBlank @Size(max = 100) String street, @NotNull int streetNumber, int floorNumber, int apartmentNumber) {
         this.country = country;
         this.region = region;
         this.city = city;
@@ -31,25 +39,6 @@ public class DeliveryAddress {
         this.streetNumber = streetNumber;
         this.floorNumber = floorNumber;
         this.apartmentNumber = apartmentNumber;
-    }
-
-    public DeliveryAddress(int id, String country, String region, String city, String street, int streetNumber, int floorNumber, int apartmentNumber) {
-        this.deliveryAddressID = id;
-        this.country = country;
-        this.region = region;
-        this.city = city;
-        this.street = street;
-        this.streetNumber = streetNumber;
-        this.floorNumber = floorNumber;
-        this.apartmentNumber = apartmentNumber;
-    }
-
-    public int getDeliveryAddressID() {
-        return deliveryAddressID;
-    }
-
-    public void setDeliveryAddressID(int deliveryAddressID) {
-        this.deliveryAddressID = deliveryAddressID;
     }
 
     public String getCountry() {

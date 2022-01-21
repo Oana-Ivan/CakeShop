@@ -1,19 +1,48 @@
 package com.proiect.cofetarie.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "clients")
 public class Client {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "client_id")
     private int clientID;
+
+    @Column(name = "client_name")
     private String clientName;
-    private DeliveryAddress deliveryAddress;
+
+    @OneToOne
+    @JsonIgnore
+    @JoinColumn(name = "delivery_address_id")
+    private DeliveryAddress deliveryAddressID;
+
+    @Column(name = "phone_number")
     private String phoneNumber;
-    private List<Order> ordersHistory;
+
+    @OneToMany(mappedBy = "client")
+    @JsonIgnore
+    private List<Order> ordersHistory = new ArrayList<>();
 
     public Client(String clientName, DeliveryAddress deliveryAddress, String phoneNumber, List<Order> ordersHistory) {
         this.clientName = clientName;
-        this.deliveryAddress = deliveryAddress;
+        this.deliveryAddressID = deliveryAddress;
         this.phoneNumber = phoneNumber;
-        this.ordersHistory = ordersHistory;
+//        this.ordersHistory = ordersHistory;
+    }
+
+    public Client(String clientName, String phoneNumber) {
+        this.clientName = clientName;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public Client() {
+
     }
 
     public int getClientID() {
@@ -32,12 +61,12 @@ public class Client {
         this.clientName = clientName;
     }
 
-    public DeliveryAddress getDeliveryAddress() {
-        return deliveryAddress;
+    public DeliveryAddress getDeliveryAddressID() {
+        return deliveryAddressID;
     }
 
-    public void setDeliveryAddress(DeliveryAddress deliveryAddress) {
-        this.deliveryAddress = deliveryAddress;
+    public void setDeliveryAddressID(DeliveryAddress deliveryAddress) {
+        this.deliveryAddressID = deliveryAddress;
     }
 
     public String getPhoneNumber() {
